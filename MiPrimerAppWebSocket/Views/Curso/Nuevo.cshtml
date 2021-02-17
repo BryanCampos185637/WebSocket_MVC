@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "Nuevo";
+}
+
+<h4>Agregar curso</h4>
+<div class="row">
+    <div class="col-12">
+        <fieldset>
+            <legend><h5>Formulario nuevo curso</h5></legend>
+            <input type="hidden" id="IIDCURSO" />
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="mb-3">
+                        <label class="form-label">IMAGEN</label>
+                        <input type="file" id="FILEIMAGEN" style="display:none" onchange="preview()" />
+                        <img id="IMAGEN" src="" class="IMAGENES card-img" />
+                        <button class="btn btn-sm btn-success mt-2" onclick="BuscarImagen()">Buscar Imagen</button>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-8 col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">NOMBRE</label>
+                        <input type="text" class="form-control" id="NOMBRE" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">DESCRIPCIÓN</label>
+                        <textarea id="DESCRIPCION" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">CATEGORIA</label>
+                        <select id="IIDCATEGORIACURSO" class="form-control"></select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">PRECIO</label>
+                        <input type="text" class="form-control" id="PRECIO" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">CUPON</label>
+                        <input type="text" class="form-control" id="CUPON" />
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-primary" onclick="guardar()">Guardar</button>
+                        @Html.ActionLink("Regresar", "Index", "Curso", new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<script src="~/Scripts/generic.js"></script>
+<script>
+    window.onload = function () {
+        llenarCombo(function () { console.log('websocket') });
+        CirculoCarga(false);
+    }
+
+    function llenarCombo(callback) {
+        pintarCombo('Categoriacurso/listarCategoriacurso', 'IIDCATEGORIACURSO', 'NOMBRE', 'IIDCATEGORIACURSO', true, function () {
+            callback();
+        });
+    }
+    function guardar() {
+        var objeto = {
+            'IIDCURSO': get('IIDCURSO') == '' ? '0' : get('IIDCURSO'),
+            'IMAGEN': getS('IMAGEN'),
+            'NOMBRE': get('NOMBRE'),
+            'DESCRIPCION': get('DESCRIPCION'),
+            'IIDCATEGORIACURSO': get('IIDCATEGORIACURSO'),
+            'PRECIO': get('PRECIO'),
+            'CUPON': get('CUPON')
+        }
+        fetchPost('Curso/guardarDatos', objeto, function () {
+            socket.send('agregarCurso');
+            location.href = UrlEnviar('Curso/index');
+        });
+    }
+    function BuscarImagen() {
+        document.getElementById('FILEIMAGEN').click();
+    }
+    function preview() {
+        var archivo = document.getElementById('FILEIMAGEN').files[0];//obtengo el archivo
+        var fileReader = new FileReader();
+        fileReader.onload = function (e) {
+            document.getElementById('IMAGEN').src = e.target.result;
+        }
+        fileReader.readAsDataURL(archivo);
+    }
+    //VALIDAMOS LOS CAMBIOS EN EL SOCKET
+    socket.onmessage = function (e) {
+        switch (e.data) {
+            case 'guardoCategoriaCurso':
+                var id = get('IIDCATEGORIACURSO');
+                llenarCombo(function () {
+                    set('IIDCATEGORIACURSO', id);//mantener el valor del filtro
+                });
+                break;
+            case 'eliminarCategoriaCurso':
+                var id = get('IIDCATEGORIACURSO');
+                llenarCombo(function () {
+                    set('IIDCATEGORIACURSO', id);//mantener el valor del filtro
+                });
+                break;
+        }
+    }
+</script>

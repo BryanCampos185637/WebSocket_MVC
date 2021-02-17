@@ -1,0 +1,8 @@
+C:\Users\Bryan J. Campos\Desktop\MVC_WebSocket\WebSocket\bin\Debug\WebSocket.exe.config
+C:\Users\Bryan J. Campos\Desktop\MVC_WebSocket\WebSocket\bin\Debug\WebSocket.exe
+C:\Users\Bryan J. Campos\Desktop\MVC_WebSocket\WebSocket\bin\Debug\WebSocket.pdb
+C:\Users\Bryan J. Campos\Desktop\MVC_WebSocket\WebSocket\bin\Debug\Fleck.dll
+C:\Users\Bryan J. Campos\Desktop\MVC_WebSocket\WebSocket\obj\Debug\WebSocket.csproj.CoreCompileInputs.cache
+C:\Users\Bryan J. Campos\Desktop\MVC_WebSocket\WebSocket\obj\Debug\WebSocket.csproj.CopyComplete
+C:\Users\Bryan J. Campos\Desktop\MVC_WebSocket\WebSocket\obj\Debug\WebSocket.exe
+C:\Users\Bryan J. Campos\Desktop\MVC_WebSocket\WebSocket\obj\Debug\WebSocket.pdb

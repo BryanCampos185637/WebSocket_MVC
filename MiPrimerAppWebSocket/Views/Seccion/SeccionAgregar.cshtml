@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "SeccionAgregar";
+}
+
+<h4>Seccion Agregar</h4>
+<div class="row">
+    <div class="col-12 mb-3">
+        <fieldset>
+            <legend><h5>Formulario registro</h5></legend>
+            <input type="hidden" id="IIDCURSO" value="@ViewBag.Curso" />
+            <div class="mb-3">
+                <label>NOMBRE SECCION</label>
+                <input type="text" id="NOMBRESECCION" class="form-control" placeholder="Escribe el nombre de la seccion" />
+            </div>
+            <div class="mb-3">
+                <label>DESCRIPCION</label>
+                <textarea id="DESCRIPCIONSECCION" class="form-control" placeholder="Escribe una descripcion"></textarea>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" onclick="Agregar()">AGREGAR</button>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-12">
+        <!--Acordion-->
+        <div class="accordion" id="accordionExample"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lblTitulo"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="IIDSECCION_EDIT"/>
+                    <div id="divEditar">
+                        <div class="mb-3">
+                            <label>NOMBRE SECCION</label>
+                            <input type="text" id="NOMBRESECCION_EDIT" class="form-control" placeholder="Escribe el nombre de la seccion" />
+                        </div>
+                        <div class="mb-3">
+                            <label>DESCRIPCION</label>
+                            <textarea id="DESCRIPCIONSECCIONE_EDIT" class="form-control" placeholder="Escribe una descripcion"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+                    <button type="button" class="btn btn-primary" onclick="GuardarDatos()">GUARDAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/generic.js"></script>
+<script src="~/Scripts/seccionAgregar.js"></script>
+

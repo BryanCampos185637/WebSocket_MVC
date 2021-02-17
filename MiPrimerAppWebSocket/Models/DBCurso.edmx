@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BDCursoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CategoriaCurso">
+          <Key>
+            <PropertyRef Name="IIDCATEGORIACURSO" />
+          </Key>
+          <Property Name="IIDCATEGORIACURSO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="HABILITADO" Type="int" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="IIDCURSO" />
+          </Key>
+          <Property Name="IIDCURSO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="150" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="1000" />
+          <Property Name="IIDCATEGORIACURSO" Type="int" />
+          <Property Name="PRECIO" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CUPON" Type="varchar" MaxLength="200" />
+          <Property Name="BHABILITADO" Type="int" />
+          <Property Name="IMAGEN" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="SeccionCurso">
+          <Key>
+            <PropertyRef Name="IIDSECCION" />
+          </Key>
+          <Property Name="IIDSECCION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRESECCION" Type="varchar" MaxLength="100" />
+          <Property Name="IIDCURSO" Type="int" />
+          <Property Name="DESCRIPCIONSECCION" Type="varchar" MaxLength="100" />
+          <Property Name="BHABILITADO" Type="int" />
+        </EntityType>
+        <EntityType Name="VideosSeccion">
+          <Key>
+            <PropertyRef Name="IIDVIDEOS" />
+          </Key>
+          <Property Name="IIDVIDEOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="VIDEO" Type="varchar(max)" />
+          <Property Name="ENLACE" Type="varchar" MaxLength="100" />
+          <Property Name="BHABILITADO" Type="int" />
+          <Property Name="IIDSECCION" Type="int" />
+        </EntityType>
+        <Association Name="FK_Curso_CategoriaCurso">
+          <End Role="CategoriaCurso" Type="Self.CategoriaCurso" Multiplicity="0..1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaCurso">
+              <PropertyRef Name="IIDCATEGORIACURSO" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IIDCATEGORIACURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeccionCurso_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="0..1" />
+          <End Role="SeccionCurso" Type="Self.SeccionCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="IIDCURSO" />
+            </Principal>
+            <Dependent Role="SeccionCurso">
+              <PropertyRef Name="IIDCURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideosSeccion_SeccionCurso">
+          <End Role="SeccionCurso" Type="Self.SeccionCurso" Multiplicity="0..1" />
+          <End Role="VideosSeccion" Type="Self.VideosSeccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeccionCurso">
+              <PropertyRef Name="IIDSECCION" />
+            </Principal>
+            <Dependent Role="VideosSeccion">
+              <PropertyRef Name="IIDSECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDCursoModelStoreContainer">
+          <EntitySet Name="CategoriaCurso" EntityType="Self.CategoriaCurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeccionCurso" EntityType="Self.SeccionCurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VideosSeccion" EntityType="Self.VideosSeccion" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Curso_CategoriaCurso" Association="Self.FK_Curso_CategoriaCurso">
+            <End Role="CategoriaCurso" EntitySet="CategoriaCurso" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeccionCurso_Curso" Association="Self.FK_SeccionCurso_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="SeccionCurso" EntitySet="SeccionCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideosSeccion_SeccionCurso" Association="Self.FK_VideosSeccion_SeccionCurso">
+            <End Role="SeccionCurso" EntitySet="SeccionCurso" />
+            <End Role="VideosSeccion" EntitySet="VideosSeccion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDCursoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CategoriaCurso">
+          <Key>
+            <PropertyRef Name="IIDCATEGORIACURSO" />
+          </Key>
+          <Property Name="IIDCATEGORIACURSO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HABILITADO" Type="Int32" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Curso_CategoriaCurso" FromRole="CategoriaCurso" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="IIDCURSO" />
+          </Key>
+          <Property Name="IIDCURSO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IIDCATEGORIACURSO" Type="Int32" />
+          <Property Name="PRECIO" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CUPON" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BHABILITADO" Type="Int32" />
+          <Property Name="IMAGEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CategoriaCurso" Relationship="Self.FK_Curso_CategoriaCurso" FromRole="Curso" ToRole="CategoriaCurso" />
+          <NavigationProperty Name="SeccionCurso" Relationship="Self.FK_SeccionCurso_Curso" FromRole="Curso" ToRole="SeccionCurso" />
+        </EntityType>
+        <EntityType Name="SeccionCurso">
+          <Key>
+            <PropertyRef Name="IIDSECCION" />
+          </Key>
+          <Property Name="IIDSECCION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRESECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IIDCURSO" Type="Int32" />
+          <Property Name="DESCRIPCIONSECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BHABILITADO" Type="Int32" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_SeccionCurso_Curso" FromRole="SeccionCurso" ToRole="Curso" />
+          <NavigationProperty Name="VideosSeccion" Relationship="Self.FK_VideosSeccion_SeccionCurso" FromRole="SeccionCurso" ToRole="VideosSeccion" />
+        </EntityType>
+        <EntityType Name="VideosSeccion">
+          <Key>
+            <PropertyRef Name="IIDVIDEOS" />
+          </Key>
+          <Property Name="IIDVIDEOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VIDEO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ENLACE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BHABILITADO" Type="Int32" />
+          <Property Name="IIDSECCION" Type="Int32" />
+          <NavigationProperty Name="SeccionCurso" Relationship="Self.FK_VideosSeccion_SeccionCurso" FromRole="VideosSeccion" ToRole="SeccionCurso" />
+        </EntityType>
+        <Association Name="FK_Curso_CategoriaCurso">
+          <End Role="CategoriaCurso" Type="Self.CategoriaCurso" Multiplicity="0..1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriaCurso">
+              <PropertyRef Name="IIDCATEGORIACURSO" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IIDCATEGORIACURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeccionCurso_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="0..1" />
+          <End Role="SeccionCurso" Type="Self.SeccionCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="IIDCURSO" />
+            </Principal>
+            <Dependent Role="SeccionCurso">
+              <PropertyRef Name="IIDCURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideosSeccion_SeccionCurso">
+          <End Role="SeccionCurso" Type="Self.SeccionCurso" Multiplicity="0..1" />
+          <End Role="VideosSeccion" Type="Self.VideosSeccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeccionCurso">
+              <PropertyRef Name="IIDSECCION" />
+            </Principal>
+            <Dependent Role="VideosSeccion">
+              <PropertyRef Name="IIDSECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDCursoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CategoriaCurso" EntityType="Self.CategoriaCurso" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="SeccionCurso" EntityType="Self.SeccionCurso" />
+          <EntitySet Name="VideosSeccion" EntityType="Self.VideosSeccion" />
+          <AssociationSet Name="FK_Curso_CategoriaCurso" Association="Self.FK_Curso_CategoriaCurso">
+            <End Role="CategoriaCurso" EntitySet="CategoriaCurso" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeccionCurso_Curso" Association="Self.FK_SeccionCurso_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="SeccionCurso" EntitySet="SeccionCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideosSeccion_SeccionCurso" Association="Self.FK_VideosSeccion_SeccionCurso">
+            <End Role="SeccionCurso" EntitySet="SeccionCurso" />
+            <End Role="VideosSeccion" EntitySet="VideosSeccion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BDCursoModelStoreContainer" CdmEntityContainer="BDCursoEntities">
+          <EntitySetMapping Name="CategoriaCurso">
+            <EntityTypeMapping TypeName="BDCursoModel.CategoriaCurso">
+              <MappingFragment StoreEntitySet="CategoriaCurso">
+                <ScalarProperty Name="IIDCATEGORIACURSO" ColumnName="IIDCATEGORIACURSO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="BDCursoModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="IIDCURSO" ColumnName="IIDCURSO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="IIDCATEGORIACURSO" ColumnName="IIDCATEGORIACURSO" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="CUPON" ColumnName="CUPON" />
+                <ScalarProperty Name="BHABILITADO" ColumnName="BHABILITADO" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeccionCurso">
+            <EntityTypeMapping TypeName="BDCursoModel.SeccionCurso">
+              <MappingFragment StoreEntitySet="SeccionCurso">
+                <ScalarProperty Name="IIDSECCION" ColumnName="IIDSECCION" />
+                <ScalarProperty Name="NOMBRESECCION" ColumnName="NOMBRESECCION" />
+                <ScalarProperty Name="IIDCURSO" ColumnName="IIDCURSO" />
+                <ScalarProperty Name="DESCRIPCIONSECCION" ColumnName="DESCRIPCIONSECCION" />
+                <ScalarProperty Name="BHABILITADO" ColumnName="BHABILITADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideosSeccion">
+            <EntityTypeMapping TypeName="BDCursoModel.VideosSeccion">
+              <MappingFragment StoreEntitySet="VideosSeccion">
+                <ScalarProperty Name="IIDVIDEOS" ColumnName="IIDVIDEOS" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="VIDEO" ColumnName="VIDEO" />
+                <ScalarProperty Name="ENLACE" ColumnName="ENLACE" />
+                <ScalarProperty Name="BHABILITADO" ColumnName="BHABILITADO" />
+                <ScalarProperty Name="IIDSECCION" ColumnName="IIDSECCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

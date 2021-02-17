@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Grafico";
+}
+
+<h4>Graficos</h4>
+<select id="Tipografico" class="form-control" onchange="graficar(0)">
+    <option value="pie">PASTEL</option>
+    <option value="line">LINEAS</option>
+    <option value="bar">BARRAS</option>
+</select>
+<div class="row">
+    <div id="canvas" class="col-12"></div>
+</div>
+<script src="~/Scripts/generic.js"></script>
+<script src="~/Scripts/chart.js"></script>
+<script src="~/Scripts/grafico.js"></script>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BDCursoModelStoreContainer" CdmEntityContainer="BDCursoEntities">
+    <EntitySetMapping Name="CategoriaCurso">
+      <EntityTypeMapping TypeName="BDCursoModel.CategoriaCurso">
+        <MappingFragment StoreEntitySet="CategoriaCurso">
+          <ScalarProperty Name="IIDCATEGORIACURSO" ColumnName="IIDCATEGORIACURSO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="HABILITADO" ColumnName="HABILITADO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Curso">
+      <EntityTypeMapping TypeName="BDCursoModel.Curso">
+        <MappingFragment StoreEntitySet="Curso">
+          <ScalarProperty Name="IIDCURSO" ColumnName="IIDCURSO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="IIDCATEGORIACURSO" ColumnName="IIDCATEGORIACURSO" />
+          <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+          <ScalarProperty Name="CUPON" ColumnName="CUPON" />
+          <ScalarProperty Name="BHABILITADO" ColumnName="BHABILITADO" />
+          <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeccionCurso">
+      <EntityTypeMapping TypeName="BDCursoModel.SeccionCurso">
+        <MappingFragment StoreEntitySet="SeccionCurso">
+          <ScalarProperty Name="IIDSECCION" ColumnName="IIDSECCION" />
+          <ScalarProperty Name="NOMBRESECCION" ColumnName="NOMBRESECCION" />
+          <ScalarProperty Name="IIDCURSO" ColumnName="IIDCURSO" />
+          <ScalarProperty Name="DESCRIPCIONSECCION" ColumnName="DESCRIPCIONSECCION" />
+          <ScalarProperty Name="BHABILITADO" ColumnName="BHABILITADO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VideosSeccion">
+      <EntityTypeMapping TypeName="BDCursoModel.VideosSeccion">
+        <MappingFragment StoreEntitySet="VideosSeccion">
+          <ScalarProperty Name="IIDVIDEOS" ColumnName="IIDVIDEOS" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="VIDEO" ColumnName="VIDEO" />
+          <ScalarProperty Name="ENLACE" ColumnName="ENLACE" />
+          <ScalarProperty Name="BHABILITADO" ColumnName="BHABILITADO" />
+          <ScalarProperty Name="IIDSECCION" ColumnName="IIDSECCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

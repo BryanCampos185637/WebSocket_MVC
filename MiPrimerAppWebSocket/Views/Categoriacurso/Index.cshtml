@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Categoria curso";
+}
+
+<h4>Categoria curso </h4>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-md-12">
+        <fieldset>
+            <legend>Formulario curso</legend>
+            <div class="mb-1">
+                <label class="form-label">ID CURSO</label>
+                <input type="text" class="form-control" id="IIDCATEGORIACURSO" readonly />
+            </div>
+            <div class="mb-1">
+                <label class="form-label">NOMBRE CATEGORIA</label>
+                <input type="text" class="form-control" id="NOMBRE" autofocus />
+            </div>
+            <div class="mb-4">
+                <button class="btn btn-success" onclick="guardar()">Guardar</button>
+                <button class="btn btn-danger" onclick="Limpiar()">Limpiar</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-12 mb-3">
+        <div style="flex-wrap:wrap">
+            <label class="form-label">INGRESE NOMBRE CATEGORIA</label>
+            <input type="text" placeholder="Escriba el nombre categoria para la busqueda" id="CBXNOMBRE" autocomplete="off" class="form-control" onkeyup="filtrarCategoria()" />
+        </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 col-md-12" id="contenido"></div>
+</div>
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DataTable.js"></script>
+<script src="~/Scripts/generic.js"></script>
+<script src="~/Scripts/Categoriacurso.js"></script>
+

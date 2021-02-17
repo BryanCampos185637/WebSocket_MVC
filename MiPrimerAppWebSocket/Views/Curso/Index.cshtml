@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Cursos";
+}
+
+<h4>Cursos </h4>
+<a href="~/Curso/nuevo" class="btn btn-primary mb-2">Nuevo</a>
+<div class="row mb-3">
+    <div class="col-12">
+        <div style="flex-wrap:wrap">
+            <label class="form-label">SELECCIONA UNA CATEGORIA</label>
+            <select id="IIDCATEGORIACURSO" class="form-control" onchange="filtrarCurso()"></select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-md-12" id="contenido"></div>
+</div>
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DataTable.js"></script>
+<script src="~/Scripts/generic.js"></script>
+<script src="~/Scripts/curso.js"></script>
