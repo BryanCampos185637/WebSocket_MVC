@@ -36,35 +36,13 @@
                         @Html.ActionLink("Seccion", "Index", "Seccion", new { area = "" }, new { @class = "nav-link" })
                     </li>
                 </ul>
-                <form class="d-flex">
+                @*<form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                </form>*@
             </div>
         </div>
     </nav>
-    @*<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"><span id="SocketEstado"></span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    @Html.ActionLink("Categorias", "Index", "Categoriacurso", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item active">
-                    @Html.ActionLink("Cursos", "Index", "Curso", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item active">
-                    @Html.ActionLink("Graficos", "Grafico", "Curso", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item active">
-                    @Html.ActionLink("Seccion", "Index", "Seccion", new { area = "" }, new { @class = "nav-link" })
-                </li>
-            </ul>
-        </div>
-    </nav>*@
     <div id="contenedorRender">
         <div id="contenedor-carga">
             <div id="div-carga"></div>
