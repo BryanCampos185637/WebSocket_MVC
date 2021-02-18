@@ -124,7 +124,7 @@ function GuardarDatos() {
         fetchPost('seccion/guardar', objetoSeccion, function () {
             socket.send('seccionAgregar' + get('IIDCURSO'));
             limpiar();
-            Exito('Exito', 'Se guardo la sección');
+            Exito('Exito', 'Se modifico la sección');
             listarSecciones(arrayData);
         });
     }
