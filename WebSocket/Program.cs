@@ -14,7 +14,7 @@ namespace WebSocket
             {
                 var contador = 0;
                 IPAddress[] IpLocal = Dns.GetHostAddresses(Dns.GetHostName());
-                string ipServidorWebSocket = "ws://"+ Convert.ToString(IpLocal[1]) + ":9898";//definimos la ip del equipo server
+                string ipServidorWebSocket = "ws://192.168.137.1:9898";//definimos la ip del equipo server
                 WebSocketServer servidorSocket = new WebSocketServer(ipServidorWebSocket);//instanciamos el servidor
                 List<IWebSocketConnection> clientesSockets = new List<IWebSocketConnection>();//lista de clientes conectados
                 Console.WriteLine("Servidor iniciado [" + Convert.ToString(IpLocal[1]) + "]" + DateTime.Now.ToString("dd/MM/yyyy"));

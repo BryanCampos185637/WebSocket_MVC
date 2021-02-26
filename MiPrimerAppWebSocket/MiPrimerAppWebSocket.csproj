@@ -167,6 +167,7 @@
     <Compile Include="ViewModels\Categoriacursos.cs" />
     <Compile Include="ViewModels\Cursos.cs" />
     <Compile Include="ViewModels\Secciones.cs" />
+    <Compile Include="ViewModels\Videossecciones.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

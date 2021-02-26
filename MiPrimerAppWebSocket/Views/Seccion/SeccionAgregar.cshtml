@@ -4,6 +4,7 @@
 }
 
 <h4>Seccion Agregar</h4>
+<h5 id="nombreCurso"></h5>
 <div class="row">
     <div class="col-12 mb-3">
         <fieldset>
@@ -36,7 +37,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="IIDSECCION_EDIT"/>
+                    <input type="hidden" id="IIDSECCION_EDIT" />
+                    <input type="hidden" id="VIDEO_EDIT" />
                     <div id="divEditar">
                         <div class="mb-3">
                             <label>NOMBRE SECCION</label>
@@ -47,10 +49,39 @@
                             <textarea id="DESCRIPCIONSECCIONE_EDIT" class="form-control" placeholder="Escribe una descripcion"></textarea>
                         </div>
                     </div>
+                    <div id="divAgregarClase">
+                        <div class="mb-3">
+                            <label>INGRESE EL TITULO DE LA CLASE</label>
+                            <input type="text" class="form-control" id="TITULO" />
+                        </div>
+                        <div class="mb-3">
+                            <label>INGRESE VIDEO A SUBIR</label>
+                            <input type="file" style="display:block" id="VIDEO" accept=".mp4" />
+                            <progress class="mt-3" id="BARRA_PROGRESO" max="0" value="0" style="width:100%"></progress>
+                            <center><span class="text-primary" id="porcentaje"></span></center>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCerrarModal">CERRAR</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardarDatos()">GUARDAR</button>
+                    </div>
                 </div>
+        </div>
+    </div>
+</div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalVideo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Video</h5>
+                    @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+                </div>
+                <div class="modal-body">
+                    <video id="videoDatos" width="100%" height="75%" controls></video>
+                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-                    <button type="button" class="btn btn-primary" onclick="GuardarDatos()">GUARDAR</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCerrarModalVideo" onclick="CerrarVideo()">CERRAR</button>
                 </div>
             </div>
         </div>

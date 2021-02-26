@@ -1,5 +1,5 @@
 ﻿//socket
-var socket = new WebSocket('ws://192.168.43.18:9898');
+var socket = new WebSocket('ws://192.168.137.1:9898');
 socket.onopen = function () {
     document.getElementById('SocketEstado').innerHTML = '<i title="websocket encendido" class="text-success">WebSocket</i>';
 }
@@ -108,13 +108,29 @@ function fetchPost(url, obj, callback) {
             method: "POST",
             body: JSON.stringify(obj)
         }).then(resp => resp.text()).then(resp => {
-            if (resp == 1) {
-                callback();
+            if (resp >= 1) {
+                callback(resp);
             } else {
                 Error(undefined, undefined);
             }
         });
     })
+}
+//funcion para enviar la data que sea demasiado pesado al controlador
+function fetchPostMasivo(url, obj, callback) {
+    //obtener la url absoluta
+    var urlAbsoluta = window.location.protocol + '//' + window.location.host + get('hdfOculto') + url;
+    fetch(urlAbsoluta, {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify(obj)
+    }).then(resp => resp.text()).then(obj => {
+        if (obj >= 1) {
+            callback(obj);
+        } else {
+            Error(undefined, undefined);
+        }
+    });
 }
 //mensaje de error
 function Error(titulo='Error', texto='Ocurrio un error! intente mas tarde...') {
@@ -158,6 +174,19 @@ function EliminarDatos(id) {
         Eliminar(id);
     });
 }
+//obtener datos en formato JSON pero masivos
+function fetchGetTextMasivos(url, callback) {
+    //obtener la url absoluta
+    var urlAbsoluta = window.location.protocol + '//' + window.location.host + get('hdfOculto') + url;
+    fetch(urlAbsoluta).then(resp => resp.text()).then(textMasivo => {
+        if (textMasivo != '') {
+            callback(textMasivo);
+        } else {
+            Error();
+        }
+    })
+}
+
 //obtener datos en formato JSON
 function fetchGetJSON(url, callback) {
     //obtener la url absoluta
@@ -229,4 +258,7 @@ function RecuperarPaginaActual(idTabla, indiceActual) {
         }
         if (encontro) { break; };
     }
+}
+function displayHTML(id, valor) {
+    document.getElementById(id).style.display = valor;
 }

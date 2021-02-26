@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using MiPrimerAppWebSocket.Models;
 using MiPrimerAppWebSocket.ViewModels;
 using System;
+using System.Collections.Generic;
 
 namespace MiPrimerAppWebSocket.Controllers
 {
@@ -13,6 +14,111 @@ namespace MiPrimerAppWebSocket.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        [HttpGet]
+        public JsonResult recuperarVideo(int id)
+        {
+            try
+            {
+                using(var db = new BDCursoEntities())
+                {
+                    Videossecciones objVideo = new Videossecciones();
+                    objVideo = (from video in db.VideosSeccion
+                             where video.BHABILITADO == 1 && video.IIDVIDEOS==id
+                             select new Videossecciones 
+                             {
+                                NOMBRE=video.NOMBRE
+                             }).First();
+                    return Json(objVideo, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        public int guardarSeccionVideo(Videossecciones obj)
+        {
+            int result = 0;
+            try
+            {
+                using(var db = new BDCursoEntities())
+                {
+                    string video = obj.VIDEO;
+                    string caracter = video.Substring(0, 1);
+                    if (obj.IIDVIDEOS == 0)
+                    {
+                        if (caracter.Equals("i"))
+                        {
+                            VideosSeccion videosSeccion = new VideosSeccion();
+                            videosSeccion.NOMBRE = obj.NOMBRE;
+                            videosSeccion.IIDSECCION = obj.IIDSECCION;
+                            videosSeccion.BHABILITADO = 1;
+                            if (obj.VIDEO == "i")
+                                videosSeccion.VIDEO = "";
+                            else
+                                videosSeccion.VIDEO = obj.VIDEO.Substring(1);
+                            db.VideosSeccion.Add(videosSeccion);
+                            db.SaveChanges();
+                            result= videosSeccion.IIDVIDEOS;
+                        }
+                    }
+                    else
+                    {
+                        if (caracter.Equals("i"))
+                        {
+                            VideosSeccion videosSeccion = db.VideosSeccion.Where(p => p.IIDVIDEOS == obj.IIDVIDEOS).FirstOrDefault();
+                            videosSeccion.NOMBRE = obj.NOMBRE;
+                            if (obj.VIDEO != "i") { videosSeccion.VIDEO = obj.VIDEO.Substring(1); }
+                            db.SaveChanges();
+                            result = videosSeccion.IIDVIDEOS;
+                        }
+                        else 
+                        {
+                            VideosSeccion videosSeccion = db.VideosSeccion.Where(p => p.IIDVIDEOS == obj.IIDVIDEOS).FirstOrDefault();
+                            videosSeccion.VIDEO += obj.VIDEO.Substring(1);
+                            db.SaveChanges();
+                            result = videosSeccion.IIDVIDEOS;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                result= 0;
+            }
+            return result;
+        }
+
+        [HttpGet]
+        public string obtenerVideo(int Id)
+        {
+            using(var db = new BDCursoEntities())
+            {
+                var video = db.VideosSeccion.Where(p => p.IIDVIDEOS == Id).First().VIDEO;
+                return video;
+            }
+        }
+        [HttpGet]
+        public JsonResult listarSeccionVideo(int Id)
+        {
+            List<Videossecciones> lst = new List<Videossecciones>();
+            using(var db = new BDCursoEntities())
+            {
+                lst = (from seccion in db.SeccionCurso
+                       join seccionvideo in db.VideosSeccion
+                       on seccion.IIDSECCION equals seccionvideo.IIDSECCION
+                       where seccion.IIDCURSO == Id && seccionvideo.BHABILITADO == 1 
+                       && seccion.BHABILITADO == 1
+                       select new Videossecciones
+                       {
+                           IIDVIDEOS = seccionvideo.IIDVIDEOS,
+                           IIDSECCION = (int)seccionvideo.IIDSECCION,
+                           NOMBRE = seccionvideo.NOMBRE
+                       }).ToList();
+                return Json(lst, JsonRequestBehavior.AllowGet);
+            }
         }
         public ActionResult SeccionAgregar(int? Id)
         {
@@ -138,6 +244,39 @@ namespace MiPrimerAppWebSocket.Controllers
                     }
                     return 1;
                 }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+        [HttpGet]
+        public string obtenerNombre(int id)
+        {
+            try
+            {
+                using (var db = new BDCursoEntities())
+                {
+                    return db.Curso.Where(p => p.IIDCURSO == id).First().NOMBRE;
+                }
+            }
+            catch (Exception e)
+            {
+                return "Error: " + e.Message;
+            }
+        }
+        [HttpGet]
+        public int eliminarVideo(int id)
+        {
+            try
+            {
+                using (var db = new BDCursoEntities())
+                {
+                    var data = db.VideosSeccion.Where(p => p.IIDVIDEOS == id).First();
+                    db.VideosSeccion.Remove(data);
+                    db.SaveChanges();
+                }
+                return 1;
             }
             catch (Exception)
             {
